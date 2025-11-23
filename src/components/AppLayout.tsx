@@ -4,17 +4,19 @@ import React from "react";
 
 type AppLayoutProps = {
 	children: React.ReactNode;
+	headerAction?: React.ReactNode;
 };
 
-export default function AppLayout({ children }: AppLayoutProps) {
+export default function AppLayout({ children, headerAction }: AppLayoutProps) {
 	return (
 		<div className="min-h-dvh bg-gradient-to-b from-emerald-50 via-amber-50 to-white text-slate-900">
 			<header className="w-full border-b border-black/5 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/50">
-				<div className="mx-auto max-w-2xl px-4 py-4 flex items-center justify-center">
+				<div className="mx-auto max-w-2xl px-4 py-4 flex items-center justify-between">
 					<h1 className="text-2xl font-semibold flex items-center gap-2">
 						<span role="img" aria-label="leaf">🌿</span>
 						<span>PollenSense</span>
 					</h1>
+					{headerAction && <div>{headerAction}</div>}
 				</div>
 			</header>
 
