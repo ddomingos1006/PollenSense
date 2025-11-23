@@ -28,15 +28,26 @@ export default function BluetoothConnector({
 
 	// Simulation timer
 	useEffect(() => {
-		if (!simulation) return;
+		if (!simulation) {
+			// Reset when simulation is turned off
+			onLevel(null);
+			return;
+		}
+		
+		// Initialize with a starting value
 		let level = 12;
+		onLevel(level); // Set initial value immediately
+		
+		setIsConnected(true);
+		setDeviceName("Simulated Pollen Wristband");
+		onConnectionChange?.(true, "Simulated Pollen Wristband");
+		
+		// Update periodically
 		const id = setInterval(() => {
 			level = (level + 7) % 101;
 			onLevel(level);
 		}, 1200);
-		setIsConnected(true);
-		setDeviceName("Simulated Pollen Wristband");
-		onConnectionChange?.(true, "Simulated Pollen Wristband");
+		
 		return () => {
 			clearInterval(id);
 			setIsConnected(false);
